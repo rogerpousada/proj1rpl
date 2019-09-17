@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+    mysql:
+        container_name: mysql
+        build:
+            context: ./mysql
+        volumes:
+           - ./data/mysql/:/var/lib/mysql
+        environment:
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}    
+        ports:
+            - "3306:3306"
+        links:
+            - node
+    node:
+        container_name: node
+        build:
+            context: ./node
+        ports:
+            - "8080:8080"
+    nginx:
+        container_name: nginx
+        build:
+            context: ./nginx
+        volumes:
+            - ./data/logs/nginx/:/var/log/nginx
+        links:
+            - node
+        ports:
+            - "80:80"
+        tty: true

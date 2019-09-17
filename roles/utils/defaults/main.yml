@@ -1,0 +1,4 @@
+---
+# defaults file for role-utils
+docker_compose_version: "1.23.2"
+docker_compose_path: "/usr/bin/"

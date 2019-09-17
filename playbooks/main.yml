@@ -1,0 +1,12 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  become: true
+  become_method: sudo
+  become_user: root
+
+  vars:
+    docker_compose_version: "1.23.2"
+
+  roles:
+    - utils

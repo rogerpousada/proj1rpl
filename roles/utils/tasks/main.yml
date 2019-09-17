@@ -1,0 +1,24 @@
+---
+# tasks file for role-utils
+- name: Install docker
+  package: 
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "docker"
+    - "direnv"
+
+- name: Add current user to docker group 
+  user:
+    name: "{{ ansible_user }}"
+    groups: "docker"
+    append: True
+
+- name: Install Docker Compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+    dest: "{{ docker_compose_path }}docker-compose"
+    force: True
+    owner: "root"
+    group: "root"
+    mode: "0755"
